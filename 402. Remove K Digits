@@ -24,3 +24,39 @@ class Solution {
     
 }
 // we can also solve using stack
+
+class Solution {
+    public String removeKdigits(String num, int k) {
+        Stack<Character> result = new Stack<>();
+
+        for(int i=0; i<num.length(); i++){
+
+            while(!result.isEmpty() && k>0 && result.peek() > num.charAt(i)){
+                result.pop();
+                k--;
+            }
+            if(!result.isEmpty()  || num.charAt(i) != '0'){
+                result.push(num.charAt(i));
+            }
+        }
+        while(!result.isEmpty() && k>0){
+            result.pop();
+                k--;
+        }
+
+     StringBuilder sb = new StringBuilder();
+        while (!result.isEmpty()) {
+            sb.append(result.pop());
+        }
+        sb.reverse(); // Reverse to get the correct order
+        
+        // Remove leading zeros
+        while (sb.length() > 0 && sb.charAt(0) == '0') {
+            sb.deleteCharAt(0);
+        }
+        
+        // Handle edge case where result might be empty
+        return sb.length() > 0 ? sb.toString() : "0";
+    }
+    
+}
