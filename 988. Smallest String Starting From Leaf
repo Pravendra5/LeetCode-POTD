@@ -1,0 +1,59 @@
+class Solution {
+    String result = "";
+
+    void dfs(TreeNode root, String curr) {
+        if (root == null) {
+            return;
+        }
+
+        curr = (char) (root.val + 'a') + curr; // This will take O(length of curr) but I have ignored this. You can consider this as well in calculating T.C
+
+        if (root.left == null && root.right == null) {
+            if (result.equals("") || result.compareTo(curr) > 0) {
+                result = curr;
+            }
+            return;
+        }
+
+        dfs(root.left, curr);
+        dfs(root.right, curr);
+    }
+
+    public String smallestFromLeaf(TreeNode root) {
+        dfs(root, "");
+        return result;
+    }
+}
+
+// using bfs
+
+class Solution {
+    public String smallestFromLeaf(TreeNode root) {
+        Queue<Pair<TreeNode, String>> queue = new LinkedList<>();
+        
+        String result = "";
+        queue.add(new Pair<>(root, String.valueOf((char)(root.val + 'a'))));
+        
+        while (!queue.isEmpty()) {
+            Pair<TreeNode, String> pair = queue.poll();
+            TreeNode node = pair.getKey();
+            String curr = pair.getValue();
+            
+            if (node.left == null && node.right == null) {
+                if (result.equals("") || result.compareTo(curr) > 0) {
+                    result = curr;
+                }
+            }
+            
+            if (node.left != null) {
+                queue.add(new Pair<>(node.left, (char)(node.left.val + 'a') + curr));
+            }
+            
+            if (node.right != null) {
+                queue.add(new Pair<>(node.right, (char)(node.right.val + 'a') + curr));
+            }
+        }
+        
+        return result;
+    }
+}
