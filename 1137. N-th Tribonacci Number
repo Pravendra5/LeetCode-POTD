@@ -1,0 +1,79 @@
+// Approach -1  recurrsion and memoization
+
+class Solution {
+    int dp[];
+
+    int find(int n){
+
+        if(n==0) return 0;
+
+        if(n == 1 || n == 2) return 1;
+
+        if(dp[n] != -1){
+            return dp[n];
+        }
+
+        int a = find(n-1);
+        int b = find(n-2);
+        int c = find(n-3);
+
+        return dp[n] = a+b+c;
+    }
+    public int tribonacci(int n) {
+
+      dp = new int[38];
+      Arrays.fill(dp, -1);
+
+    return find(n);
+      
+
+    }
+}
+
+// Approach - 2 bootom-up
+
+class Solution {
+    int t[] = new int[38];
+    public int tribonacci(int n) {
+
+    if(n==0) return 0;
+
+    if(n == 1 || n == 2) return 1;
+
+    t[0] = 0;
+    t[1] = 1;
+    t[2] = 1;
+
+    for(int i=3; i<=n; i++){
+        t[i] = t[i-1] + t[i-2] + t[i-3];
+    }
+      return t[n];
+
+    }
+}
+
+// Approach - 3 space optimization 
+
+class Solution {
+    public int tribonacci(int n) {
+
+    if(n==0) return 0;
+
+    if(n == 1 || n == 2) return 1;
+
+   int a = 0;
+   int b = 1;
+   int c = 1;
+   int d = 0;
+
+    for(int i=3; i<=n; i++){
+        d = a + b + c;
+        a = b;
+        b = c;
+        c = d;
+
+    }
+      return d;
+
+    }
+}
