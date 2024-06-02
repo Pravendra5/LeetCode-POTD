@@ -1,0 +1,69 @@
+// Approach - 1 Two pointer
+
+class Solution {
+
+    public void reverseString(char[] s) {
+        
+        int n = s.length;
+        int left = 0; 
+        int right = n-1;
+
+        while(left < right){
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+            left++;
+            right--;
+        }
+    }
+}
+
+// Approach - 2 Recursive
+
+class Solution {
+
+    private void reverse(char[] s, int left, int right) {
+
+        if(left >= right) return;
+        char temp = s[left];
+        s[left] = s[right];
+        s[right] = temp;
+
+        reverse(s, left+1, right-1);
+    }
+
+
+    public void reverseString(char[] s) {
+        
+        reverse(s, 0, s.length - 1);
+    }
+}
+
+******************************************************Python************************************************
+
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        left, right = 0, len(s) - 1
+
+        while left < right:
+            s[left], s[right] = s[right], s[left]
+            left += 1
+            right -= 1
+
+// Approach -2
+
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        def helper(left, right):
+            if left >= right:
+                return
+            s[left], s[right] = s[right], s[left]
+            helper(left+1, right-1)
+
+        helper(0, len(s) - 1)
