@@ -1,0 +1,68 @@
+**********************************************************************Python************************************************************************
+// Approah -1 Python Solution
+
+class Solution:
+    def minOperations(self, logs: List[str]) -> int:
+        depth = 0
+
+        for log in logs:
+            if log == "../":
+                depth = max(0, depth - 1)
+            elif log != "./":
+                depth += 1
+            
+        return depth
+
+// Approah -2 Python Solution
+
+class Solution:
+    def minOperations(self, logs):
+        stack = []
+
+        for currentOperation in logs:
+            if currentOperation == "../":
+                if stack:
+                    stack.pop()
+            elif currentOperation != "./":
+                stack.append(currentOperation)
+
+        return len(stack)
+
+**********************************************************************Java************************************************************************
+
+// Approah -1 Java Solution
+
+class Solution {
+    public int minOperations(String[] logs) {
+        int depth = 0;
+
+        for(String log : logs){
+            if(log.equals("../")){
+                depth = Math.max(0, depth-1);
+            }else if(!log.equals("./")){
+                depth++;
+            }
+        }
+        return depth;
+    }
+}
+
+// Approah -2 Java Solution
+
+class Solution {
+    public int minOperations(String[] logs) {
+     
+     Stack<String>st = new Stack<>();
+
+    for(String currentOperation : logs){
+        if(currentOperation.equals("../")){
+            if(!st.isEmpty()){
+                st.pop();
+            }
+        }else if(!currentOperation.equals("./")){
+            st.push(currentOperation);
+        }
+    }
+    return st.size();
+    }
+}
