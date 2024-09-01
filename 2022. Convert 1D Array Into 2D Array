@@ -1,0 +1,51 @@
+//JAVA Code
+
+class Solution {
+    public int[][] construct2DArray(int[] original, int m, int n) {
+        if(m*n != original.length) return new int[0][0];
+
+        int result = new int[m][n];
+
+        int idx = 0;
+
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                result[idx] = original[i][j];
+                idx++;
+            }
+        }
+        return result;
+    }
+}
+
+class Solution {
+    public int[][] construct2DArray(int[] original, int m, int n) {
+        if(m*n != original.length) return new int[0][0];
+
+        int[][] result = new int[m][n];
+
+        for(int i=0; i<original.length; i++){
+                result[i/n][i%n] = original[i];
+            }
+       
+        return result;
+    }
+}
+
+//PYTHON Code
+
+class Solution:
+    def construct2DArray(self, original: List[int], m: int, n: int) -> List[List[int]]:
+
+        if len(original) != m * n:
+            return []
+
+        res = []
+
+        for r in range(m):
+            start = r * n
+            end  = start + n
+            res.append(original[start:end])
+
+        return res
+        
