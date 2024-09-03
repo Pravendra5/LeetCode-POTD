@@ -1,0 +1,15 @@
+// Python
+class Solution:
+    def getLucky(self, s: str, k: int) -> int:
+        number = ''
+        for ch in s:
+            number += str(ord(ch) - ord('a') + 1)
+
+        while k > 0:
+            temp = 0
+            for ch in number:
+                temp += int(ch)
+            number = str(temp)
+            k -= 1
+        return int(number)
+        
