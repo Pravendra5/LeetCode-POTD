@@ -1,0 +1,42 @@
+//Python
+class Solution:
+    def modifiedList(self, nums: List[int], head: Optional[ListNode]) -> Optional[ListNode]:
+        nums = set(nums)
+        dummy = ListNode(0, head)
+
+        prev = dummy
+        while prev.next:
+            if prev.next.val in nums:
+                prev.next = prev.next.next
+            else:
+                prev = prev.next
+
+        return dummy.next
+      
+// JAVA
+class Solution {
+    public ListNode modifiedList(int[] nums, ListNode head) {
+        HashSet<Integer> set = new HashSet<>();
+        for(int num : nums){
+            set.add(num);
+        }
+        while(head != null && set.contains(head.val)){
+            head = head.next;
+        }
+        ListNode prev = null;
+        ListNode curr = head;
+
+        while(curr != null){
+            if(!set.contains(curr.val)){
+                prev = curr;
+                curr = curr.next;
+            }else{
+                if(prev != null){
+                    prev.next = curr.next;
+                }
+                curr = curr.next;
+            }
+        }
+        return head;
+    }
+}
