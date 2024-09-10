@@ -1,0 +1,117 @@
+****************************************************************************************************Python******************************************************************************************************
+class Solution:
+    def gcd(self, a, b):
+        if b == 0:
+            return a
+        return self.gcd(b, a % b)
+
+    def insertGreatestCommonDivisors(self, head):
+        if head is None or head.next is None:
+            return head
+
+        curr_node = head
+        next_node = head.next
+
+        while next_node is not None:
+            # Create a new node with the GCD of the current node and the next node
+            temp = ListNode(self.gcd(curr_node.val, next_node.val))
+
+            # Insert the new node between the current node and the next node
+            curr_node.next = temp
+            temp.next = next_node
+
+            # Move to the next pair of nodes
+            curr_node = next_node
+            next_node = next_node.next
+
+        return head
+
+//recursive Approach
+
+class Solution:
+    def gcd(self, a, b):
+        if b == 0:
+            return a
+        return self.gcd(b, a % b)
+
+    def insertGreatestCommonDivisors(self, head):
+        if head is None or head.next is None:
+            return head
+        
+        # Recursive call for the next part of the list
+        temp = self.insertGreatestCommonDivisors(head.next)
+        
+        # Create a new node for the GCD
+        gcd_node = ListNode(self.gcd(head.val, head.next.val))
+        
+        # Insert the GCD node between the current and next nodes
+        gcd_node.next = temp
+        head.next = gcd_node
+        
+        return head
+
+
+
+
+
+
+****************************************************************************************************Java******************************************************************************************************
+class Solution {
+
+    private int gcd(int a, int b){
+        if(b == 0){
+            return a;
+          }
+          return gcd(b, a % b);
+        }
+
+    public ListNode insertGreatestCommonDivisors(ListNode head) {
+
+        if(head == null || head.next == null){
+            return head;
+        }
+        
+        ListNode currNode = head;
+        ListNode nextNode = head.next;
+
+        while(nextNode != null){
+
+            ListNode temp = new ListNode(gcd(currNode.val, nextNode.val));
+
+            currNode.next = temp;
+            temp.next = nextNode;
+
+            currNode = nextNode;
+            nextNode = nextNode.next;
+        }
+        return head;
+    }
+}
+
+// recurssive way
+
+class Solution {
+
+            private int gcd(int a, int b){
+            if(b == 0){
+                return a;
+            }
+            return gcd(b, a % b);
+        }
+
+    public ListNode insertGreatestCommonDivisors(ListNode head) {
+
+        if(head == null || head.next == null){
+            return head;
+        }
+        
+        ListNode temp = insertGreatestCommonDivisors(head.next);
+       
+        ListNode gcdNode = new ListNode(gcd(head.val, head.next.val));
+
+        gcdNode.next = temp;
+        head.next = gcdNode;
+        
+        return head;
+    }
+}
