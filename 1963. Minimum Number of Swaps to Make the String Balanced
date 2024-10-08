@@ -1,0 +1,34 @@
+# ****************************************************************************************Python**********************************************************************************************************
+
+class Solution:
+    def minSwaps(self, s: str) -> int:
+
+        stack = []
+
+        # Traverse through the string
+        for ch in s:
+            if ch == '[':
+                stack.append(ch)  # Push opening brackets to the stack
+            elif stack:
+                stack.pop()  # Pop a matching opening bracket for each closing bracket
+
+        # The remaining elements in the stack are unmatched '[' brackets
+        # The number of swaps needed is half the number of unmatched brackets
+        return (len(stack) + 1) // 2
+
+# Approach -2
+
+class Solution:
+    def minSwaps(self, s: str) -> int:
+
+        stack = 0
+
+        # Traverse through the string
+        for ch in s:
+            if ch == '[':
+                stack += 1
+            elif stack:
+                stack -= 1
+
+ 
+        return (stack + 1) // 2
